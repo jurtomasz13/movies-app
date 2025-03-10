@@ -18,7 +18,6 @@ export default async function MovieDetailsPage({ params }: MovieDetailsPageProps
   
   return (
     <div>
-      <h1>Movie Details Page</h1>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <MovieDetails movieId={movieId} />
       </HydrationBoundary>

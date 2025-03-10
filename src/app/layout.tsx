@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <Providers>
           <div>
-            <div className="bg-white shadow-lg rounded-xl p-6">{children}</div>
+            <div className="bg-white shadow-lg rounded-xl">{children}</div>
           </div>
         </Providers>
       </body>
