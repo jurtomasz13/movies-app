@@ -1,5 +1,5 @@
 import { getQueryClient } from "@/app/getQueryClient";
-import { MovieList } from "@/components/MovieList";
+import { MovieListing } from "@/components/MovieListing";
 import { moviesOptions } from "@/hooks/useMovies";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
@@ -8,10 +8,9 @@ export default function Home() {
   void queryClient.prefetchQuery(moviesOptions);
   
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="container mx-auto px-4 py-8">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <MovieList />
+        <MovieListing />
       </HydrationBoundary>
     </div>
   );

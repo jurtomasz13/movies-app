@@ -1,10 +1,12 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 const fetchMovieDetails = async (movieId: string | number) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/tmdb/movie/${movieId}`
+      `${BASE_API_URL}/api/tmdb/movie/${movieId}`
     );
     return response.data;
   } catch (error) {
@@ -20,7 +22,7 @@ export const movieDetailsOptions = (movieId: string | number) =>
   });
 
 export const useMovieDetails = (movieId: string | number) => {
-  return useQuery({
+  return useSuspenseQuery({
     ...movieDetailsOptions(movieId),
   });
 };
