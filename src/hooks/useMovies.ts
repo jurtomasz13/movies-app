@@ -16,12 +16,15 @@ export type TMDBFilters = {
   sort_by: string;
 };
 
-const fetchMoviesByFilters = async (filters?: TMDBFilters) => {
+const fetchMoviesByFilters = async (filters?: TMDBFilters, page?: number) => {
   try {
     const response = await axios.get(
       `${BASE_API_URL}/api/tmdb/discover/movie`,
       {
-        params: filters,
+        params: {
+          ...filters,
+          page,
+        },
       }
     );
 
@@ -32,11 +35,12 @@ const fetchMoviesByFilters = async (filters?: TMDBFilters) => {
   }
 };
 
-const fetchMoviesByQuery = async (query: string) => {
+const fetchMoviesByQuery = async (query: string, page: number) => {
   try {
     const response = await axios.get(`${BASE_API_URL}/api/tmdb/search/movie`, {
       params: {
         query,
+        page,
       },
     });
     return response.data;
@@ -55,18 +59,20 @@ export const useMoviesSuspense = () => {
   return useSuspenseQuery(moviesOptions);
 };
 
-export const useMoviesWithFilters = (filters?: TMDBFilters) => {
+export const useMoviesWithFilters = (filters?: TMDBFilters, page?: number) => {
   return useQuery({
-    queryKey: ["movies", filters ? filters : ""],
-    queryFn: () => fetchMoviesByFilters(filters),
+    queryKey: ["movies", filters ? filters : "", page],
+    queryFn: () => fetchMoviesByFilters(filters, page),
     enabled: !!filters,
   });
 };
 
-export const useMoviesWithQuery = (query: string) => {
+export const useMoviesWithQuery = (query: string, page: number) => {
+  const currentPage = query ? page : 1;
+
   return useQuery({
-    queryKey: ["movies", query],
-    queryFn: () => fetchMoviesByQuery(query),
+    queryKey: ["movies", query, currentPage],
+    queryFn: () => fetchMoviesByQuery(query, currentPage),
     enabled: !!query,
   });
 };

@@ -16,13 +16,14 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <div className="aspect-[2/3] relative">
         <Link href={`/movies/${movie.id}`}>
-          <Image
-            src={`https://media.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}` || "/placeholder.svg"}
-            alt={movie.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {movie.poster_path && (
+            <Image
+              src={`https://media.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}` || "/placeholder.svg"}
+              alt={movie.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />)}
         </Link>
         <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md flex items-center gap-1">
           <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
