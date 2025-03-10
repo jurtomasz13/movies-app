@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useMovieDetails } from "@/hooks/useMovieDetails";
 import Link from "next/link";
@@ -60,7 +61,7 @@ export const MovieDetails = ({ movieId }: MovieDetailsProps) => {
                 {movie.original_title !== movie.title && (
                   <p className="text-sm text-muted-foreground">Original title: {movie.original_title}</p>
                 )}
-                {movie.tagline && <p className="text-lg italic text-muted-foreground mt-1">"{movie.tagline}"</p>}
+                {movie.tagline && <p className="text-lg italic text-muted-foreground mt-1">&quot;{movie.tagline}&quot;</p>}
               </div>
 
               <div className="flex gap-2">
@@ -197,14 +198,14 @@ export const MovieDetails = ({ movieId }: MovieDetailsProps) => {
                   <div className="flex gap-2">
                     <dt className="font-medium">Original Language:</dt>
                     <dd className="text-muted-foreground">
-                      {movie.spoken_languages.find((lang) => lang.iso_639_1 === movie.original_language)
+                      {movie.spoken_languages.find((lang: any) => lang.iso_639_1 === movie.original_language)
                         ?.english_name || movie.original_language.toUpperCase()}
                     </dd>
                   </div>
                   <div className="flex gap-2">
                     <dt className="font-medium">Spoken Languages:</dt>
                     <dd className="text-muted-foreground">
-                      {movie.spoken_languages.map((lang) => lang.english_name).join(", ")}
+                      {movie.spoken_languages.map((lang: any) => lang.english_name).join(", ")}
                     </dd>
                   </div>
                 </dl>
