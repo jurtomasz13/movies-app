@@ -1,7 +1,10 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
+const BASE_API_URL =
+  process.env.NEXT_PUBLIC_BASE_API_URL ||
+  `https://${process.env.VERCEL_URL}` ||
+  "http://localhost:3000";
 
 const fetchMovieDetails = async (movieId: string | number) => {
   try {

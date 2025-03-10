@@ -5,7 +5,10 @@ import {
 } from "@tanstack/react-query";
 import axios from "axios";
 
-const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
+const BASE_API_URL =
+  process.env.NEXT_PUBLIC_BASE_API_URL ||
+  `https://${process.env.VERCEL_URL}` ||
+  "http://localhost:3000";
 
 export type TMDBFilters = {
   vote_average: {
